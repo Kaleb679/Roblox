@@ -37,11 +37,13 @@ function module.init(ctx)
 		end
 
 		-- New target logic
+		-- print(newTarget)
 		if newTarget and newTarget:IsA("Model") then
 			currentAura:Clear()
 			currentAura:Emit(1)
 			loopEmitter(currentAura, ctx)
 			local mount = newTarget:FindFirstChild("HumanoidRootPart"):FindFirstChild("HighlightMount")
+			print(mount)
 			if mount then
 				ctx.Highlight = currentAura
 				currentAura.Parent = mount

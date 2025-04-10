@@ -39,6 +39,7 @@ function context:isFirstPerson()
 	return distance < 1
 end
 
+
 -- Initial context values
 context.LocalPlayer = LocalPlayer
 context.Mouse = Mouse
@@ -52,6 +53,15 @@ context.Config = {
 	DevMode = true,
 	Faction = "Alliance",
 }
+
+if context.Character then
+	local hrp = context.Character:FindFirstChild("HumanoidRootPart")
+	local attachment = Instance.new("Attachment")
+	attachment.Name = "HighlightMount"
+	attachment.Position = Vector3.new(0,-2.8,0)
+	attachment.Parent = hrp
+	-- hrp
+end
 
 -- Load modules dynamically from /Modules folders
 local modulesFolder = script.Parent:WaitForChild("Modules")

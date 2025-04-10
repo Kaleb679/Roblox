@@ -17,6 +17,7 @@ function module.init(ctx)
 		
 		if ctx:isFirstPerson() then
 			local target = ctx.Mouse.Target:FindFirstAncestorOfClass("Model")
+			print(target)
 			
 			if target and target ~= ctx.Selection then
 				ctx.Selection = target
@@ -30,23 +31,25 @@ function module.init(ctx)
 
 		local mousePos = UserInputService:GetMouseLocation()
 		local ray = Camera:ViewportPointToRay(mousePos.X, mousePos.Y)
-
+		
 		local rayParams = RaycastParams.new()
-			rayParams.FilterType = Enum.RaycastFilterType.Exclude
-			rayParams.FilterDescendantsInstances = {}
-			rayParams.IgnoreWater = true
-
+		rayParams.FilterType = Enum.RaycastFilterType.Exclude
+		rayParams.FilterDescendantsInstances = {}
+		rayParams.IgnoreWater = true
+		
 		local result = workspace:Raycast(ray.Origin, ray.Direction * 1000, rayParams)
-
+		
 		if result then
 			local part = result.Instance
 			local targetModel = part:FindFirstAncestorOfClass("Model")
+
 			if not targetModel then
 				ctx.Selection = nil
+				return
 			end
-
 			if targetModel and targetModel ~= ctx.Selection then
 				ctx.Selection = targetModel
+				return
 			end
 			
 		end
